@@ -17,14 +17,27 @@ if (!defined('DOKU_INC')) die();
  * @warning This function performs no validation on $type and uses it to
  *          dynamically call a function.
  *
- * @param string $type       Name of the class to be used from dokuwiki\Menu\Item.
+ * @param string $type       Name of the class to be used from devel:menus.
  * @param bool   $ignore_exc Should we ignore any exceptions that are thrown?
  *
  * @see tpl_button
+ * @see https://www.dokuwiki.org/devel:menus
  */
 function _shim_button($type, $ignore_exc = false) {
     try {
-        echo (new $class())->asHtmlButton();
+        // Get button HTML.
+        $class = "dokuwiki\\Menu\\Item\\$type";
+        $html = (new $class())->asHtmlButton();
+
+        // Remove icon to ensure a consistent look with the original template.
+        $svg_start = strpos($html, '<svg ');
+        if ($svg_start === false)
+            goto echohtml;
+        $svg_end = strpos($html, '</svg>') + 6;
+        $html = substr($html, 0, $svg_start) . substr($html, $svg_end);
+
+echohtml:
+        echo $html;
     } catch (Exception $e) {
         if (!$ignore_exc)
             throw $e;
