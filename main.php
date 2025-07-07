@@ -11,10 +11,14 @@
  * @link   http://dokuwiki.org/templates
  * @author Andreas Gohr <andi@splitbrain.org>
  * @author desbest <afaninthehouse@gmail.com>
+ * @author Nathan Campos <hi@nathancampos.me>
  */
 
 // must be run from within DokuWiki
 if (!defined('DOKU_INC')) die();
+
+// include hook for template shimming functions
+@require_once(dirname(__FILE__).'/tpl_shims.php');
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -59,12 +63,12 @@ if (!defined('DOKU_INC')) die();
 
     <div class="bar" id="bar__top">
       <div class="bar-left" id="bar__topleft">
-        <?php tpl_button('edit')?>
-        <?php tpl_button('history')?>
+        <?php _shim_button('Edit')?>
+        <?php _shim_button('Revisions')?>
       </div>
 
       <div class="bar-right" id="bar__topright">
-        <?php tpl_button('recent')?>
+        <?php _shim_button('Recent')?>
         <?php tpl_searchform()?>&#160;
       </div>
 
@@ -114,18 +118,18 @@ if (!defined('DOKU_INC')) die();
 
     <div class="bar" id="bar__bottom">
       <div class="bar-left" id="bar__bottomleft">
-        <?php tpl_button('edit')?>
-        <?php tpl_button('history')?>
-        <?php tpl_button('revert')?>
+        <?php _shim_button('Edit')?>
+        <?php _shim_button('Revisions')?>
+        <?php _shim_button('Revert', true)?>
       </div>
       <div class="bar-right" id="bar__bottomright">
-        <?php tpl_button('subscribe')?>
-        <?php tpl_button('media')?>
-        <?php tpl_button('admin')?>
-        <?php tpl_button('profile')?>
-        <?php tpl_button('login')?>
-        <?php tpl_button('index')?>
-        <?php tpl_button('top')?>&#160;
+        <?php _shim_button('Subscribe', true)?>
+        <?php _shim_button('Media')?>
+        <?php _shim_button('Admin')?>
+        <?php _shim_button('Profile')?>
+        <?php _shim_button('Login')?>
+        <?php _shim_button('Index')?>
+        <?php _shim_button('Top')?>&#160;
       </div>
     </div>
 
